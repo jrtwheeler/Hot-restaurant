@@ -40,6 +40,15 @@ app.post("/api/reserve", function(req, res) {
   res.json(newReserv);
 })
 
+// app.post("/api/waitlist", function(req, res) {
+//   let newWait = req.body;
+
+//   console.log(newWait);
+
+//   table.push(newWait);
+//   res.json(newWait);
+// })
+
 // Initializing Server
 app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
