@@ -1,7 +1,7 @@
 const express = require('express');
 var path = require("path");
 const table = require('./data/tabledata');
-const waitlist = require('./data/waitlist');
+const waitlist = require('./data/waitingdata');
 
 const app = express();
 const PORT = 3000;
@@ -11,11 +11,11 @@ app.use(express.json());
 
 // Route Handling
 app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "index.html"));
+  res.sendFile(path.join(__dirname + "/public/" + "index.html"));
 });
 
 app.get("/reserve", function(req, res) {
-  res.sendFile(path.join(__dirname, "reserve.html"));
+  res.sendFile(path.join(__dirname + "/public/" + "reserve.html"));
 });
 
 app.get("/table", function(req, res) {
@@ -23,12 +23,21 @@ app.get("/table", function(req, res) {
 });
 
 // APIs
-app.get("/api/reservations", function(req, res) {
+app.get("/api/reserve", function(req, res) {
   return res.json(table);
 });
 
 app.get("/api/waitlist", function(req, res) {
   return res.json(waitlist);
+})
+
+app.post("/api/reserve", function(req, res) {
+  let newReserv = req.body;
+
+  console.log(newReserv);
+
+  table.push(newReserv);
+  res.json(newReserv);
 })
 
 // Initializing Server
